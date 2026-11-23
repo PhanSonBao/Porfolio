@@ -1,0 +1,41 @@
+export const projects = [
+  {
+    id: 'sports-saas',
+    title: 'Sports Facility & POS Management',
+    category: 'Business SaaS',
+    featured: true,
+    description: 'A SaaS application for facility reservations, point-of-sale transactions, stock management, and customer check-in.',
+    tech: ['ASP.NET MVC', 'React', 'SQL Server', 'Entity Framework', 'SignalR', 'JWT'],
+    modules: ['Facility booking', 'Point of sale', 'Inventory', 'QR check-in'],
+    problem: 'Sports facilities need to handle reservations, counter sales, inventory, and arrivals as part of their daily operations.',
+    contribution: 'I developed modules for facility booking, POS transactions, inventory, product management, and QR-based customer check-in.',
+    implementation: 'I implemented JWT authentication, role-based authorization, and SignalR updates. I used DTOs and the Repository Pattern when refactoring application logic.',
+  },
+  {
+    id: 'wifi-portal',
+    title: 'WiFi Portal CMS',
+    category: 'Backend integration',
+    description: 'Configurable portal pages and question flows backed by an existing ASP.NET system.',
+    tech: ['ASP.NET Web API', 'SQL Server', 'Flutter'],
+    problem: 'The WiFi portal needed configurable landing pages and question flows alongside login-code validation.',
+    contribution: 'I extended the existing backend by integrating Web APIs for landing-page configuration, dynamic question flows, and validation.',
+    implementation: 'The new APIs were integrated with existing backend services.',
+  },
+  {
+    id: 'warehouse',
+    title: 'Warehouse Management System',
+    category: 'Personal project',
+    description: 'Inventory management APIs with business logic separated from persistence.',
+    tech: ['ASP.NET Core Web API', 'SQL Server', 'Clean Architecture'],
+    problem: 'Inventory use cases and database schema changes needed a clear home in the codebase.',
+    contribution: 'I developed inventory management APIs across API, Application, Domain, and Infrastructure layers.',
+    implementation: 'The Application project depends on Domain, while Infrastructure depends on Application. I used Code First migrations to manage SQL Server schema changes.',
+    dependencies: [
+      ['API', 'Application'],
+      ['API', 'Infrastructure'],
+      ['Application', 'Domain'],
+      ['Infrastructure', 'Application'],
+    ],
+  },
+]
+
