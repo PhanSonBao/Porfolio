@@ -6,7 +6,7 @@ export default function Hero({ copy }) {
       <p className="hero-description">{copy.description}</p>
       <div className="actions">
         <a href="#projects" className="button">{copy.explore} <span aria-hidden="true">↓</span></a>
-        <a className="text-link" href={import.meta.env.BASE_URL + 'resume.pdf'} download="PhanSonBao_Sofware_Devloper.pdf">{copy.download}</a>
+        <a className="text-link" href={import.meta.env.BASE_URL + 'resume.pdf'} download="PhanSonBao_Software_Devloper.pdf">{copy.download}</a>
       </div>
     </section>
   )
