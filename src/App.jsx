@@ -1,51 +1,86 @@
+import { useEffect, useState } from 'react'
 import Footer from './components/Footer.jsx'
 import Hero from './components/Hero.jsx'
 import Navbar from './components/Navbar.jsx'
 import ProjectCard from './components/ProjectCard.jsx'
-import { projects } from './data/project.js'
+import { projects, vietnameseProjects } from './data/project.js'
+import { translations } from './data/translations.js'
+
+const languageStorageKey = 'portfolio-language'
+
+function readLanguage() {
+  try {
+    return localStorage.getItem(languageStorageKey) === 'vi' ? 'vi' : 'en'
+  } catch {
+    return 'en'
+  }
+}
 
 export default function App() {
+  const [language, setLanguage] = useState(readLanguage)
+  const copy = translations[language]
+  const nextLanguage = language === 'en' ? 'vi' : 'en'
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    document.title = copy.pageTitle
+    document.querySelector('meta[name="description"]')?.setAttribute('content', copy.pageDescription)
+  }, [language, copy])
+
+  function switchLanguage() {
+    setLanguage(nextLanguage)
+    try {
+      localStorage.setItem(languageStorageKey, nextLanguage)
+    } catch {
+      // The active language still changes if browser storage is unavailable.
+    }
+  }
+
   return (
     <>
-      <a className="skip-link" href="#main">Skip to content</a>
-      <Navbar />
+      <a className="skip-link" href="#main">{copy.skipLink}</a>
+      <Navbar copy={copy.nav} nextLanguage={nextLanguage} onSwitchLanguage={switchLanguage} />
       <main id="main" className="container">
-        <Hero />
+        <Hero copy={copy.hero} />
 
         <section id="projects" className="section" aria-labelledby="work-title">
-          <h2 id="work-title">Selected work</h2>
+          <h2 id="work-title">{copy.work.title}</h2>
           <div className="project-grid">
             {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard
+                key={project.id}
+                project={language === 'vi' ? { ...project, ...vietnameseProjects[project.id] } : project}
+                copy={copy.work}
+              />
             ))}
           </div>
         </section>
 
         <section id="approach" className="section approach" aria-labelledby="approach-title">
-          <h2 id="approach-title">How I work</h2>
+          <h2 id="approach-title">{copy.approach.title}</h2>
           <div>
-            <h3>Extend existing systems carefully</h3>
-            <p>When adding features to an existing ASP.NET application, I work within established service contracts and use API testing to troubleshoot integration issues.</p>
+            <h3>{copy.approach.extendTitle}</h3>
+            <p>{copy.approach.extendDescription}</p>
           </div>
           <div>
-            <h3>Keep business logic separate</h3>
-            <p>In my warehouse project, I separated inventory use cases from persistence and used Code First migrations to track schema changes.</p>
+            <h3>{copy.approach.separateTitle}</h3>
+            <p>{copy.approach.separateDescription}</p>
           </div>
         </section>
 
         <section id="about" className="section about" aria-labelledby="about-title">
           <div>
-            <h2 id="about-title">About me</h2>
-            <p>I'm Phan Son Bao, a Full Stack .NET Developer based in Ho Chi Minh City. I studied Software Engineering at HUFLIT.</p>
+            <h2 id="about-title">{copy.about.title}</h2>
+            <p>{copy.about.bio}</p>
           </div>
           <div className="experience">
-            <h3>Full Stack .NET Developer · VNDC Technology</h3>
-            <p className="meta">Sep 2025 – Present</p>
-            <p>I develop and maintain business applications and SaaS features, working across REST APIs, React interfaces, and SQL Server. I collaborate with product managers and developers to clarify requirements and resolve integration issues.</p>
+            <h3>{copy.about.position}</h3>
+            <p className="meta">{copy.about.period}</p>
+            <p>{copy.about.experience}</p>
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer heading={copy.contact} />
     </>
   )
 }

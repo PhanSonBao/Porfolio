@@ -9,16 +9,19 @@
   --dark: #15382a;
   --paper: #fff;
   --serif: Georgia, 'Times New Roman', serif;
+  --heading-font: var(--serif);
 }
+
+:root:lang(vi) { --heading-font: system-ui, sans-serif; }
 
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; }
 a { color: inherit; text-underline-offset: 0.22em; }
 a:hover { text-decoration-thickness: 2px; }
-a:focus-visible, summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+a:focus-visible, summary:focus-visible, .language-switch:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 p, h1, h2, h3, h4 { margin: 0; }
 h1, h2, h3 { line-height: 1.1; }
-h2, h3 { font-family: var(--serif); font-weight: normal; }
+h2, h3 { font-family: var(--heading-font); font-weight: normal; }
 h2 { font-size: clamp(2.15rem, 5vw, 3.5rem); letter-spacing: -0.045em; }
 h3 { font-size: clamp(1.5rem, 3vw, 2.3rem); letter-spacing: -0.028em; }
 .container { width: min(100% - 2rem, 72rem); margin-inline: auto; }
@@ -36,10 +39,23 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.3rem); letter-spacing: -0.028em; }
 .brand span { color: var(--accent); }
 .nav-links a { display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: 0.15rem; }
 .nav-links a:not(:hover) { text-decoration: none; }
+.language-switch {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.language-flag { display: block; width: 1.5rem; border-radius: 2px; }
 
 .hero { padding-block: clamp(4rem, 11vw, 9rem); }
 .eyebrow { color: var(--accent); font-size: 0.75rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
-.hero h1 { max-width: 14ch; margin-block: 0.85rem 1.25rem; font: normal clamp(2.8rem, 8vw, 7.4rem)/0.98 var(--serif); letter-spacing: -0.059em; }
+.hero h1 { max-width: 14ch; margin-block: 0.85rem 1.25rem; font: normal clamp(2.8rem, 8vw, 7.4rem)/0.98 var(--heading-font); letter-spacing: -0.059em; }
+.hero:lang(vi) h1 { line-height: 1.12; letter-spacing: -0.04em; }
 .hero em { color: var(--accent); }
 .hero-description { max-width: 43ch; color: var(--muted); font-size: clamp(1.05rem, 2.8vw, 1.28rem); }
 .actions { gap: 1.35rem; margin-top: 1.85rem; }
@@ -79,7 +95,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.3rem); letter-spacing: -0.028em; }
 
 .site-footer { background: var(--dark); color: #f4faf4; }
 .footer-content { justify-content: space-between; align-items: end; padding-block: clamp(2rem, 6vw, 4rem); }
-.email-link { display: inline-block; margin-top: 0.6rem; overflow-wrap: anywhere; }
+.footer-contact { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-top: 0.6rem; overflow-wrap: anywhere; }
 .footer-links a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 
 @media (min-width: 48rem) {
